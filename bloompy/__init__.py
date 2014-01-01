@@ -1,21 +1,11 @@
-import mmh3 # murmur hash algorithm
-import random
-import math
+import mmh3, random, math
 
 class BloomFilter():
     SALT_SIZE = 5
-    
     def __init__(self, capacity, error_rate):
-        assert error_rate > 0 and error_rate < 1
-        assert capacity > 1
-        self.p = error_rate
-        self.n = int(capacity)
+        self.p, self.n, self.vector, self.salts = error_rate, int(capacity), 0, set()
         self.m = int(-self.n * math.log(self.p) / math.log(2)**2)
         self.k = int(math.log(2) * self.m / self.n)
-        self.vector = 0
-
-        # create salts
-        self.salts = set()
         while len(self.salts) < self.k:
             salt = ""
             for j in range(BloomFilter.SALT_SIZE):
@@ -23,12 +13,9 @@ class BloomFilter():
             self.salts.add(salt)
             
     def _hash(self, item):
-        if not isinstance(item, (basestring, int, long, float, complex)):
-            raise Exception("Item is of unsupported type.")
         bloom = 0
         for salt in self.salts:
-            h = mmh3.hash128(salt + str(item)) % self.m
-            bloom |= (1L << h)
+            bloom |= (1L << (mmh3.hash128(salt + str(item)) % self.m))
         return bloom
 
     def add(self, item):
@@ -37,9 +24,6 @@ class BloomFilter():
     def __contains__(self, item):
         h = self._hash(item)
         return ((h & self.vector) == h)
-        
-    def clear(self):
-        self.vector = 0
         
     def __repr__(self):
         return "<BloomFilter n=%d, k=%d, m=%d, p=%f>" % (self.n, self.k, self.m, self.p)

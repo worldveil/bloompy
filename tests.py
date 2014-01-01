@@ -146,3 +146,5 @@ def test_performance():
         elapsed = time.time() - starttime
         error_rate = float(collisions) / float(n)
         print "%s: %f seconds with error rate = %f" % (name, elapsed, error_rate)
+
+test_speed()

@@ -1,7 +1,7 @@
 bloompy
 ====
 
-Bloom filter written in 45 lines of Python code.
+Bloom filter written in 29 lines of Python code.
 
 Currently only works with strings and numeric types. I built this on a car ride.
 
@@ -68,6 +68,6 @@ pybloomfilter: 0.303201 seconds with error rate = 0.000360
 bloompy: 62.798033 seconds with error rate = 0.000990
 ```
 
-As my implementation code is only 45 lines and I use the built-in Python `int` for the bitstring, that's not too surprising. 
+As my implementation code is only 29 lines and I use the built-in Python `int` for the bitstring, that's not too surprising. 
 
 As you can see the math works and the error rate is maintained quite well. `pybloomfilter` is really quite masterfully done, being quite fast and keeping the error rate lower than desired. 

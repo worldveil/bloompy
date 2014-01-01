@@ -1,7 +1,7 @@
 bloompy
 ====
 
-BloomPy is a minimalist bloom filter implemented in Python using the Murmur hash algorithm.
+Bloom filter written in 45 lines of Python code.
 
 Currently only works with strings and numeric types. I built this on a car ride.
 
@@ -58,7 +58,7 @@ Testing for membership simply involves hashing the item into a bit vector of siz
 
 ## Performance
 
-Speed: not so great, error adherence: right on!
+Speed: not so great, error adherence: right on.
 
 ```
 [*] Now testing with 100000 unique strings and desired error rate of 0.001
@@ -68,6 +68,6 @@ pybloomfilter: 0.303201 seconds with error rate = 0.000360
 bloompy: 62.798033 seconds with error rate = 0.000990
 ```
 
-As my implementation code is only about 50 lines and I use the built-in Python `int` for the bitstring, that's not too surprising. 
+As my implementation code is only 45 lines and I use the built-in Python `int` for the bitstring, that's not too surprising. 
 
 As you can see the math works and the error rate is maintained quite well. `pybloomfilter` is really quite masterfully done, being quite fast and keeping the error rate lower than desired. 
